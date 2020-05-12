@@ -1,0 +1,30 @@
+<div style="margin-bottom: 8px;" class="header">
+  <nz-modal [(nzVisible)]="isVisible" nzTitle="编辑新闻" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()" class="edit__modal">
+    <p>聊天室名</p>
+    <input [(ngModel)]="title" />
+    <p>聊天室介绍</p>
+    <input [(ngModel)]="content" />
+  </nz-modal>
+  <span>
+    <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
+      <input type="text" nz-input placeholder="搜索聊天室" />
+    </nz-input-group>
+    <ng-template #suffixIconButton>
+      <button nz-button nzType="primary" nzSearch><i nz-icon nzType="search"></i></button>
+    </ng-template>
+  </span>
+</div>
+<button nz-button nzType="primary" (click)="showModal()" style="margin: 10px auto;">新增聊天室</button>
+<nz-list [nzDataSource]="data" [nzRenderItem]="item" [nzItemLayout]="'horizontal'" [nzLoading]="loading">
+  <ng-template #item let-item>
+    <nz-list-item [nzActions]="item.loading ? [] : [ moreAction]">
+      <ng-template #moreAction><a (click)="del(item)">del</a></ng-template>
+      <nz-list-item-meta [nzTitle]="nzTitle"
+        nzDescription="{{ item.description }}">
+        <ng-template #nzTitle>
+          {{ item.name }}
+        </ng-template>
+      </nz-list-item-meta>
+    </nz-list-item>
+  </ng-template>
+</nz-list>

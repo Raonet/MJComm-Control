@@ -1,0 +1,16 @@
+<nz-upload nzAction='api/homepage/addhomeimg' [nzFileList]="fileList" (nzChange)="handleChange($event)" nzName="homeimg">
+  <button nz-button><i nz-icon nzType="upload"></i>上传</button>
+</nz-upload>
+<nz-list [nzDataSource]="data" [nzRenderItem]="item" [nzItemLayout]="'horizontal'" [nzLoading]="loading">
+  <ng-template #item let-item>
+    <nz-list-item [nzActions]="item.loading ? [] : [ moreAction]">
+      <ng-template #moreAction><a (click)="del(item)">del</a></ng-template>
+      <nz-list-item-meta
+        [nzDescription]="nzDescription">
+        <ng-template #nzDescription>
+          <img src="{{ item.url }}" alt="" style="height: 100px;">
+        </ng-template>
+      </nz-list-item-meta>
+    </nz-list-item>
+  </ng-template>
+</nz-list>

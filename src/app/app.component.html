@@ -1,0 +1,78 @@
+<nz-layout class="app-layout" [hidden]="!isLogin">
+  <nz-sider class="menu-sidebar"
+            nzCollapsible
+            nzWidth="256px"
+            nzBreakpoint="md"
+            [(nzCollapsed)]="isCollapsed"
+            [nzTrigger]="null">
+    <div class="sidebar-logo">
+      <a>
+        <img src="../assets/favicon.png" alt="logo">
+        <h1>MJcomm管理系统</h1>
+      </a>
+    </div>
+    <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
+      <li nz-submenu nzOpen nzTitle="信息管理" nzIcon="dashboard">
+        <ul>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="/user">用户管理</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="/news">新闻管理</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="/forum">论坛管理</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="/chat">聊天室管理</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="/homepage">主页轮播图</a>
+          </li>
+        </ul>
+      </li>
+      <li nz-submenu nzOpen nzTitle="反馈报修" nzIcon="form">
+        <ul>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="repair">报修管理</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </nz-sider>
+  <nz-layout>
+    <nz-header>
+      <div class="app-header">
+        <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
+            <i class="trigger"
+               nz-icon
+               [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
+            ></i>
+        </span>
+      </div>
+    </nz-header>
+    <nz-content>
+      <div class="inner-content">
+        <router-outlet></router-outlet>
+      </div>
+    </nz-content>
+  </nz-layout>
+</nz-layout>
+<nz-layout class="app-layout login" [hidden]="isLogin">
+  <div>
+    <h2>Mjcomm社区管理系统</h2>
+    <div class="loginInput">
+      <nz-input-group [nzPrefix]="prefixTemplateUser" style="margin: 15px auto; width: 300px;">
+        <input type="text" nz-input placeholder="用户名" [(ngModel)]="username" />
+      </nz-input-group>
+      <ng-template #prefixTemplateUser><i nz-icon nzType="user"></i></ng-template>
+      <nz-input-group [nzSuffix]="suffixTemplate" style="margin: 15px auto; width: 300px; display: block;">
+        <input [type]="passwordVisible ? 'text' : 'password'" nz-input placeholder="密码" [(ngModel)]="password" />
+      </nz-input-group>
+      <ng-template #suffixTemplate>
+        <i nz-icon [nzType]="passwordVisible ? 'eye-invisible' : 'eye'" (click)="passwordVisible = !passwordVisible"></i>
+      </ng-template>
+      <button nz-button nzType="primary" (click)="login()" style="width: 300px; margin-top: 15px;">登录</button>
+    </div>
+  </div>
+</nz-layout>
